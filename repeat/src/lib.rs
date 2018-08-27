@@ -1,8 +1,10 @@
+pub fn repeat(times: u32, text: String) -> String {
+	text
+}
+
 #[cfg(test)]
 mod tests {
-	pub fn repeat(times: u32, text: String) -> String {
-		text
-	}
+	use super::*;
 
 	#[test]
 	fn it_works() {
