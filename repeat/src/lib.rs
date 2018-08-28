@@ -1,5 +1,10 @@
 pub fn repeat(times: u32, text: String) -> String {
-	text
+	let mut result = ("").to_owned();
+	for _ in 0..times {
+		result.push_str(&text);
+	}
+
+	result
 }
 
 #[cfg(test)]
@@ -9,5 +14,10 @@ mod tests {
 	#[test]
 	fn it_works() {
 		assert_eq!(repeat(1, String::from("hello")), String::from("hello"));
+	}
+
+	#[test]
+	fn it_works2() {
+		assert_eq!(repeat(2, String::from("hello")), String::from("hellohello"));
 	}
 }
