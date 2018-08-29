@@ -12,12 +12,19 @@ mod tests {
 	use super::*;
 
 	#[test]
-	fn it_works() {
+	fn repeat_once_with_a_string_yields_the_string() {
 		assert_eq!(repeat(1, String::from("hello")), String::from("hello"));
 	}
 
 	#[test]
-	fn it_works2() {
+	fn repeat_twice_with_a_string_doubles_it() {
 		assert_eq!(repeat(2, String::from("hello")), String::from("hellohello"));
+	}
+
+	#[test]
+	fn repeat_often_results_in_a_string_of_the_lenght_times_repeat() {
+		let my_string = String::from("hello");
+		let length = my_string.len();
+		assert_eq!(repeat(200, my_string).len(), 200 * length);
 	}
 }
