@@ -7,6 +7,10 @@ pub fn repeat(times: u32, text: String) -> String {
 	result
 }
 
+pub fn is_palindrome(text: String) -> bool {
+	return true;
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -26,5 +30,11 @@ mod tests {
 		let my_string = String::from("hello");
 		let length = my_string.len();
 		assert_eq!(repeat(200, my_string).len(), 200 * length);
+	}
+
+	#[test]
+	fn is_palindrome_returns_true_for_empty_string() {
+		let test_string = String::from("");
+		assert_eq!(is_palindrome(test_string), true);
 	}
 }
