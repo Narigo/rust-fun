@@ -53,4 +53,10 @@ mod tests {
 		let test_string = String::from("abc");
 		assert_eq!(is_palindrome(test_string), false);
 	}
+
+	#[test]
+	fn is_palindrome_returns_true_for_strings_consisting_of_single_character() {
+		let test_string = String::from("aaaaaaaa");
+		assert_eq!(is_palindrome(test_string), true);
+	}
 }
