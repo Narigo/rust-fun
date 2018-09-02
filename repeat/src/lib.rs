@@ -8,11 +8,8 @@ pub fn repeat(times: u32, text: String) -> String {
 }
 
 pub fn is_palindrome(text: String) -> bool {
-	if text.len() > 1 {
-		false
-	} else {
-		true
-	}
+	let reversed = text.chars().rev().collect::<String>();
+	reversed == text
 }
 
 #[cfg(test)]
