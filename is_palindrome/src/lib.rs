@@ -1,11 +1,13 @@
-pub fn is_palindrome(text: String) -> bool {
-	let reversed = text.chars().rev().collect::<String>();
-	reversed == text
+pub mod palindrome {
+	pub fn is_palindrome(text: String) -> bool {
+		let reversed = text.chars().rev().collect::<String>();
+		reversed == text
+	}
 }
 
 #[cfg(test)]
 mod tests {
-	use super::*;
+	use palindrome::is_palindrome;
 
 	#[test]
 	fn is_palindrome_returns_true_for_empty_string() {

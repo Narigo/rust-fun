@@ -1,15 +1,17 @@
-pub fn repeat(times: u32, text: String) -> String {
-	let mut result = ("").to_owned();
-	for _ in 0..times {
-		result.push_str(&text);
-	}
+pub mod repeat {
+	pub fn repeat(times: u32, text: String) -> String {
+		let mut result = ("").to_owned();
+		for _ in 0..times {
+			result.push_str(&text);
+		}
 
-	result
+		result
+	}
 }
 
 #[cfg(test)]
 mod tests {
-	use super::*;
+	use repeat::*;
 
 	#[test]
 	fn repeat_once_with_a_string_yields_the_string() {
