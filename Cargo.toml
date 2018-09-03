@@ -1,0 +1,7 @@
+[workspace]
+
+members = [
+	"hello-world",
+  "is-palindrome",
+	"repeat"
+]

@@ -1,12 +1,10 @@
-pub mod repeat {
-	pub fn repeat(times: u32, text: String) -> String {
-		let mut result = ("").to_owned();
-		for _ in 0..times {
-			result.push_str(&text);
-		}
-
-		result
+pub fn repeat(times: u32, text: String) -> String {
+	let mut result = ("").to_owned();
+	for _ in 0..times {
+		result.push_str(&text);
 	}
+
+	result
 }
 
 #[cfg(test)]

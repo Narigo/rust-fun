@@ -1,6 +1,7 @@
 [package]
-name = "hello_world"
+name = "hello-world"
 version = "0.1.0"
 authors = ["Joern Bernhardt <joern.bernhardt@googlemail.com>"]
 
 [dependencies]
+repeat = { path = "../repeat" }
