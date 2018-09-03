@@ -9,8 +9,7 @@ pub fn repeat(times: u32, text: String) -> String {
 
 #[cfg(test)]
 mod tests {
-	use repeat::*;
-
+	use repeat;
 	#[test]
 	fn repeat_once_with_a_string_yields_the_string() {
 		assert_eq!(repeat(1, String::from("hello")), String::from("hello"));
