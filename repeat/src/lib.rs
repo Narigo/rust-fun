@@ -1,5 +1,5 @@
 pub fn repeat(times: u32, text: String) -> String {
-	let mut result = ("").to_owned();
+	let mut result = "".to_owned();
 	for _ in 0..times {
 		result.push_str(&text);
 	}
