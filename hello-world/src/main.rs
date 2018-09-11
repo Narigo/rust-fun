@@ -8,11 +8,15 @@ fn main() {
 	println!("Hello {}", repeat::repeat(5, String::from("world")));
 
 	loop {
-		check_palindrome()
+		let is_palindrome = check_palindrome();
+		if is_palindrome {
+			break;
+		}
+		println!("Try again!");
 	}
 }
 
-fn check_palindrome() {
+fn check_palindrome() -> bool {
 	let mut my_string = String::new();
 	print!("Check if the following word is a palindrome: ");
 	io::stdout().flush().expect("Failed to write line");
@@ -25,5 +29,7 @@ fn check_palindrome() {
 
 	let my_string_is_palindrome = is_palindrome::is_palindrome(&my_string);
 
-	println!("{} is palindrome? {}", my_string, my_string_is_palindrome)
+	println!("{} is palindrome? {}", my_string, my_string_is_palindrome);
+
+	my_string_is_palindrome
 }
