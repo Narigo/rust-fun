@@ -7,12 +7,9 @@ use std::io::Write;
 fn main() {
 	println!("Hello {}", repeat::repeat(5, String::from("world")));
 
-	loop {
-		let is_palindrome = check_palindrome();
-		if is_palindrome {
-			break;
-		}
-		println!("Try again!");
+	let mut is_palindrome = false;
+	while !is_palindrome {
+		is_palindrome = check_palindrome();
 	}
 }
 
