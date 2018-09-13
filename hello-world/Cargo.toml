@@ -6,3 +6,6 @@ authors = ["Joern Bernhardt <joern.bernhardt@googlemail.com>"]
 [dependencies]
 repeat = { path = "../repeat" }
 is-palindrome = { path = "../is-palindrome" }
+hyper = "0.11"
+tokio-core = "0.1"
+futures = "0.1"
