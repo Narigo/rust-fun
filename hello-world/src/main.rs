@@ -1,15 +1,10 @@
-extern crate futures;
 extern crate hyper;
 extern crate is_palindrome;
 extern crate repeat;
-extern crate tokio_core;
 
-use futures::Future;
-use hyper::{Client, Uri};
-use tokio_core::reactor::Core;
-
-use std::io;
-use std::io::Write;
+use hyper::rt::{self, Future, Stream};
+use hyper::Client;
+use std::io::{self, Write};
 
 fn main() {
 	println!("Hello {}", repeat::repeat(5, String::from("world")));
@@ -21,22 +16,32 @@ fn main() {
 
 	println!("And now for something completely different:");
 
-	// Core is the Tokio event loop used for making a non-blocking request
-	let mut core = Core::new().unwrap();
+	let url = "http://baconipsum.com/api/?paras=5&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1".parse().unwrap();
+	rt::run(fetch_url(url));
 
-	let client = Client::new(&core.handle());
+	println!("Done?")
+}
 
-	let url: Uri = "http://httpbin.org/response-headers?foo=bar"
-		.parse()
-		.unwrap();
-	assert_eq!(url.query(), Some("foo=bar"));
+fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
+	let client = Client::new();
+	client
+		.get(url)
+		.and_then(|res| {
+			println!("Response: {}", res.status());
+			println!("Headers: {:#?}", res.headers());
 
-	let request = client.get(url).map(|res| {
-		assert_eq!(res.status(), hyper::Ok);
-	});
-
-	// request is a Future, futures are lazy, so must explicitly run
-	core.run(request).unwrap();
+			res.into_body().for_each(|chunk| {
+				io::stdout()
+					.write_all(&chunk)
+					.map_err(|e| panic!("example expects stdout is open, error={}", e))
+			})
+		})
+		.map(|_| {
+			println!("\n\nDone.");
+		})
+		.map_err(|err| {
+			eprintln!("Error {}", err);
+		})
 }
 
 fn check_palindrome() -> bool {
