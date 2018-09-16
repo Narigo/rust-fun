@@ -1,9 +1,11 @@
 extern crate hyper;
+extern crate hyper_tls;
 extern crate is_palindrome;
 extern crate repeat;
 
 use hyper::rt::{self, Future, Stream};
 use hyper::Client;
+use hyper_tls::HttpsConnector;
 use std::io::{self, Write};
 
 fn main() {
@@ -16,14 +18,19 @@ fn main() {
 
 	println!("And now for something completely different:");
 
-	let url = "http://baconipsum.com/api/?paras=5&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1".parse().unwrap();
+	let url =
+		"https://baconipsum.com/api/?paras=5&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1"
+			.parse()
+			.unwrap();
 	rt::run(fetch_url(url));
 
 	println!("Done?")
 }
 
 fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
-	let client = Client::new();
+	let https = HttpsConnector::new(4).unwrap();
+	let client = Client::builder().build::<_, hyper::Body>(https);
+
 	client
 		.get(url)
 		.and_then(|res| {

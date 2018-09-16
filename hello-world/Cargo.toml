@@ -7,3 +7,4 @@ authors = ["Joern Bernhardt <joern.bernhardt@googlemail.com>"]
 repeat = { path = "../repeat" }
 is-palindrome = { path = "../is-palindrome" }
 hyper = "0.12"
+hyper-tls = "0.3.0"
