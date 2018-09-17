@@ -9,7 +9,7 @@ use hyper_tls::HttpsConnector;
 use std::io::{self, Write};
 
 fn main() {
-	println!("Hello {}", repeat::repeat(5, String::from("world")));
+	repeat_a_word();
 
 	let mut is_palindrome = false;
 	while !is_palindrome {
@@ -23,8 +23,20 @@ fn main() {
 			.parse()
 			.unwrap();
 	rt::run(fetch_url(url));
+}
 
-	println!("Done?")
+fn repeat_a_word() -> () {
+	let mut my_string = String::new();
+	print!("Repeat which word? ");
+	io::stdout().flush().expect("Failed to write line");
+
+	io::stdin()
+		.read_line(&mut my_string)
+		.expect("Failed to read line");
+
+	my_string = my_string.trim().to_string();
+
+	println!("{}", repeat::repeat(5, my_string))
 }
 
 fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
