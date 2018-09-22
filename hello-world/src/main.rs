@@ -4,25 +4,45 @@ extern crate is_palindrome;
 extern crate repeat;
 
 use hyper::rt::{self, Future, Stream};
-use hyper::Client;
+use hyper::{Client, Uri};
 use hyper_tls::HttpsConnector;
 use std::io::{self, Write};
 
 fn main() {
-	repeat_a_word();
-
-	let mut is_palindrome = false;
-	while !is_palindrome {
-		is_palindrome = check_palindrome();
-	}
-
-	println!("And now for something completely different:");
-
-	let url =
+	let url = 
 		"https://baconipsum.com/api/?paras=5&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1"
-			.parse()
+			.parse::<Uri>()
 			.unwrap();
-	rt::run(fetch_url(url));
+
+	let mut repeat = true;
+	while repeat {
+		println!("What do you want to do?");
+		println!("    a) Repeat a word");
+		println!("    b) Check if word is palindrome");
+		println!("    c) Fetch a URL");
+		println!("");
+		println!("    q) Quit");
+		println!("");
+		print!("Your choice: ");
+		io::stdout().flush().expect("Failed to write line");
+
+		let mut my_string = String::new();
+		io::stdin()
+			.read_line(&mut my_string)
+			.expect("Failed to read line");
+
+		my_string = my_string.trim().to_string();
+
+		match &my_string as &str {
+			"a" => repeat_a_word(),
+			"b" => check_palindrome(),
+			"c" => rt::run(fetch_url(url.clone())),
+			_ => {
+				println!("Goodbye!");
+				repeat = false
+			}
+		}
+	}
 }
 
 fn repeat_a_word() -> () {
@@ -63,7 +83,7 @@ fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
 		})
 }
 
-fn check_palindrome() -> bool {
+fn check_palindrome() -> () {
 	let mut my_string = String::new();
 	print!("Check if the following word is a palindrome: ");
 	io::stdout().flush().expect("Failed to write line");
@@ -76,7 +96,5 @@ fn check_palindrome() -> bool {
 
 	let my_string_is_palindrome = is_palindrome::is_palindrome(&my_string);
 
-	println!("{} is palindrome? {}", my_string, my_string_is_palindrome);
-
-	my_string_is_palindrome
+	println!("{} is palindrome? {}", my_string, my_string_is_palindrome)
 }
