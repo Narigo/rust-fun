@@ -9,7 +9,7 @@ use hyper_tls::HttpsConnector;
 use std::io::{self, Write};
 
 fn main() {
-	let url = 
+	let url =
 		"https://baconipsum.com/api/?paras=5&type=meat-and-filler&start-with-lorem=1&make-it-spicy=1"
 			.parse::<Uri>()
 			.unwrap();
@@ -37,10 +37,11 @@ fn main() {
 			"a" => repeat_a_word(),
 			"b" => check_palindrome(),
 			"c" => rt::run(fetch_url(url.clone())),
-			_ => {
+			"q" => {
 				println!("Goodbye!");
 				repeat = false
 			}
+			_ => println!("Unrecognized command. Please try again!"),
 		}
 	}
 }
