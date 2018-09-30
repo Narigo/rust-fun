@@ -33,20 +33,30 @@ fn main() {
 
 		my_string = my_string.trim().to_string();
 
-		match &my_string as &str {
+		repeat = match &my_string as &str {
 			"a" => repeat_a_word(),
 			"b" => check_palindrome(),
-			"c" => rt::run(fetch_url(url.clone())),
-			"q" => {
-				println!("Goodbye!");
-				repeat = false
+			"c" => fetch(url.clone()),
+			"q" => quit(),
+			_ => {
+				println!("Unrecognized command. Please try again!");
+				true
 			}
-			_ => println!("Unrecognized command. Please try again!"),
 		}
 	}
 }
 
-fn repeat_a_word() -> () {
+fn quit() -> bool {
+	println!("Goodbye!");
+	false
+}
+
+fn fetch(url: hyper::Uri) -> bool {
+	rt::run(fetch_url(url));
+	true
+}
+
+fn repeat_a_word() -> bool {
 	let mut my_string = String::new();
 	print!("Repeat which word? ");
 	io::stdout().flush().expect("Failed to write line");
@@ -57,7 +67,8 @@ fn repeat_a_word() -> () {
 
 	my_string = my_string.trim().to_string();
 
-	println!("{}", repeat::repeat(5, my_string))
+	println!("{}", repeat::repeat(5, my_string));
+	true
 }
 
 fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
@@ -84,7 +95,7 @@ fn fetch_url(url: hyper::Uri) -> impl Future<Item = (), Error = ()> {
 		})
 }
 
-fn check_palindrome() -> () {
+fn check_palindrome() -> bool {
 	let mut my_string = String::new();
 	print!("Check if the following word is a palindrome: ");
 	io::stdout().flush().expect("Failed to write line");
@@ -97,5 +108,6 @@ fn check_palindrome() -> () {
 
 	let my_string_is_palindrome = is_palindrome::is_palindrome(&my_string);
 
-	println!("{} is palindrome? {}", my_string, my_string_is_palindrome)
+	println!("{} is palindrome? {}", my_string, my_string_is_palindrome);
+	true
 }
