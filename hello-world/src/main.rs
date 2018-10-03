@@ -37,7 +37,7 @@ fn main() {
 			"a" => to_true(repeat_a_word()),
 			"b" => to_true(check_palindrome()),
 			"c" => to_true(fetch(url.clone())),
-			"q" => quit(),
+			"q" => to_false(quit()),
 			_ => to_true(println!("Unrecognized command. Please try again!")),
 		}
 	}
@@ -47,9 +47,12 @@ fn to_true<X>(_: X) -> bool {
 	true
 }
 
-fn quit() -> bool {
-	println!("Goodbye!");
+fn to_false<X>(_: X) -> bool {
 	false
+}
+
+fn quit() -> () {
+	println!("Goodbye!");
 }
 
 fn fetch(url: hyper::Uri) -> () {
