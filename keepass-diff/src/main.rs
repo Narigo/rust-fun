@@ -25,12 +25,6 @@ fn check_group(
 ) -> Vec<(Vec<String>, String, String, String)> {
     println!("looking at group {}", current_group.name);
     parents.push(current_group.name);
-    accumulated.push((
-        parents.clone(),
-        String::from(""),
-        String::from(""),
-        String::from(""),
-    ));
     for entry in current_group.entries {
         accumulated.push((
             parents.clone(),
