@@ -33,13 +33,11 @@ fn check_group(
             entry.get_password().unwrap().to_string(),
         ))
     }
+    let mut all_groups_children: Vec<(Vec<String>, String, String, String)> = Vec::new();
     for next_parent in current_group.child_groups {
-        let children = check_group(
-            &mut accumulated.clone(),
-            &mut parents.clone(),
-            next_parent,
-        );
-        accumulated.append(&mut children.clone())
+        let children = check_group(&mut accumulated.clone(), &mut parents.clone(), next_parent);
+        all_groups_children.append(&mut children.clone())
     }
+    accumulated.append(&mut all_groups_children);
     accumulated.clone()
 }
