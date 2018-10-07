@@ -11,8 +11,11 @@ fn main() {
         .unwrap();
 
     // Iterate over all Groups and Nodes
-    let accumulated = check_group(&mut Vec::new(), &mut Vec::new(), db.root);
+    let mut accumulated = check_group(&mut Vec::new(), &mut Vec::new(), db.root);
+    accumulated.sort();
+    accumulated.dedup();
 
+    println!("result");
     for entry in accumulated {
         println!("{:?}", entry);
     }
@@ -23,7 +26,6 @@ fn check_group(
     parents: &mut Vec<String>,
     current_group: Group,
 ) -> Vec<(Vec<String>, String, String, String)> {
-    println!("looking at group {}", current_group.name);
     parents.push(current_group.name);
     for entry in current_group.entries {
         accumulated.push((
@@ -39,5 +41,8 @@ fn check_group(
         all_groups_children.append(&mut children.clone())
     }
     accumulated.append(&mut all_groups_children);
+    for entry in accumulated.clone() {
+        println!("{:?}", entry);
+    }
     accumulated.clone()
 }
