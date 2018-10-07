@@ -1,24 +1,55 @@
 extern crate keepass;
 
 use keepass::{Database, Group, OpenDBError};
+use std::cmp::max;
+use std::env;
 use std::fs::File;
 use std::path::Path;
 
 fn main() {
-    let db = File::open(Path::new("keepass-diff/test/test.kdbx"))
+    let args: Vec<String> = env::args().collect();
+
+    match (args.get(1), args.get(2)) {
+        (Some(file_a), Some(file_b)) => compare(&file_a.as_str(), &file_b.as_str()),
+        _ => println!("Needs two arguments"),
+    }
+}
+
+fn compare(file_a: &str, file_b: &str) {
+    let a = kdbx_to_sorted_vec(file_a);
+    let b = kdbx_to_sorted_vec(file_b);
+
+    let maximum = max(a.len(), b.len());
+    let mut a_idx = 0;
+    let mut b_idx = 0;
+    while a_idx < maximum && b_idx < maximum {
+        let a_elem = a.get(a_idx);
+        let b_elem = b.get(b_idx);
+        if a_elem == b_elem {
+            a_idx = a_idx + 1;
+            b_idx = b_idx + 1;
+            continue;
+        }
+        if a_elem < b_elem {
+            println!("- {:?}", a_elem.unwrap());
+            a_idx = a_idx + 1;
+            continue;
+        }
+        if b_elem < a_elem {
+            println!("+ {:?}", b_elem.unwrap());
+            b_idx = b_idx + 1;
+            continue;
+        }
+    }
+}
+
+fn kdbx_to_sorted_vec(file: &str) -> Vec<(Vec<String>, String, String, String)> {
+    let db = File::open(Path::new(file))
         .map_err(|e| OpenDBError::from(e))
         .and_then(|mut db_file| Database::open(&mut db_file, "demopass"))
         .unwrap();
 
-    // Iterate over all Groups and Nodes
-    let mut accumulated = check_group(&mut Vec::new(), &mut Vec::new(), db.root);
-    accumulated.sort();
-    accumulated.dedup();
-
-    println!("result");
-    for entry in accumulated {
-        println!("{:?}", entry);
-    }
+    check_group(&mut Vec::new(), &mut Vec::new(), db.root)
 }
 
 fn check_group(
@@ -41,8 +72,7 @@ fn check_group(
         all_groups_children.append(&mut children.clone())
     }
     accumulated.append(&mut all_groups_children);
-    for entry in accumulated.clone() {
-        println!("{:?}", entry);
-    }
+    accumulated.sort();
+    accumulated.dedup();
     accumulated.clone()
 }
