@@ -5,3 +5,4 @@ authors = ["Joern Bernhardt <joern.bernhardt@googlemail.com>"]
 
 [dependencies]
 keepass = "0.1.2"
+termcolor = "1.0.4"
