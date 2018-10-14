@@ -1,4 +1,5 @@
 extern crate keepass;
+extern crate rpassword;
 extern crate termcolor;
 
 use keepass::{Database, Group, OpenDBError};
@@ -12,14 +13,28 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     match (args.get(1), args.get(2)) {
-        (Some(file_a), Some(file_b)) => compare(&file_a.as_str(), &file_b.as_str()),
+        (Some(file_a), Some(file_b)) => {
+            println!("Password for file {}: ", file_a);
+            let pass_a = rpassword::prompt_password_stdout("").unwrap();
+            println!("Password for file {}: ", file_b);
+            let pass_b = rpassword::prompt_password_stdout("").unwrap();
+            compare(
+                &file_a.as_str(),
+                &pass_a.as_str(),
+                &file_b.as_str(),
+                &pass_b.as_str(),
+            )
+        }
         _ => println!("Needs two arguments"),
     }
 }
 
-fn compare(file_a: &str, file_b: &str) {
-    let a = kdbx_to_sorted_vec(file_a);
-    let b = kdbx_to_sorted_vec(file_b);
+fn compare(file_a: &str, password_a: &str, file_b: &str, password_b: &str) {
+    println!("started compare");
+    let a = kdbx_to_sorted_vec(file_a, password_a);
+    println!("Could open file a");
+    let b = kdbx_to_sorted_vec(file_b, password_b);
+    println!("Could open file b");
 
     let maximum = max(a.len(), b.len());
     let mut a_idx = 0;
@@ -56,10 +71,11 @@ fn compare(file_a: &str, file_b: &str) {
 
 fn kdbx_to_sorted_vec(
     file: &str,
+    password: &str,
 ) -> Vec<(Vec<String>, Option<String>, Option<String>, Option<String>)> {
     let db = File::open(Path::new(file))
         .map_err(|e| OpenDBError::from(e))
-        .and_then(|mut db_file| Database::open(&mut db_file, "demopass"))
+        .and_then(|mut db_file| Database::open(&mut db_file, password))
         .unwrap();
 
     accumulate_all_entries(db.root)
