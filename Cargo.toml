@@ -3,6 +3,6 @@
 members = [
 	"hello-world",
   "is-palindrome",
-	"keepass-diff",
-	"repeat"
+	"repeat",
+	"wasm-test"
 ]
