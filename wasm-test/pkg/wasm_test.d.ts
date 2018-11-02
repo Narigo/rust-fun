@@ -1,3 +1,7 @@
 /* tslint:disable */
-export function greet(): void;
+export function greet(): TestStruct;
 
+export class TestStruct {
+free(): void;
+
+}

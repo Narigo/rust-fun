@@ -17,11 +17,17 @@ cfg_if! {
 }
 
 #[wasm_bindgen]
-extern {
+pub struct TestStruct {
+    pub num: u32,
+}
+
+#[wasm_bindgen]
+extern "C" {
     fn alert(s: &str);
 }
 
 #[wasm_bindgen]
-pub fn greet() {
-    alert("Hello world, from WebAssembly!");
+pub fn greet() -> TestStruct {
+    let ts = TestStruct { num: 123 };
+    ts
 }
