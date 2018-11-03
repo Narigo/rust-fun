@@ -1,7 +1,3 @@
 /* tslint:disable */
-export function greet(): TestStruct;
+export function add(arg0: number, arg1: number): number;
 
-export class TestStruct {
-free(): void;
-
-}

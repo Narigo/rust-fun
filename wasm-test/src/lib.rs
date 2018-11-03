@@ -17,17 +17,6 @@ cfg_if! {
 }
 
 #[wasm_bindgen]
-pub struct TestStruct {
-    pub num: u32,
-}
-
-#[wasm_bindgen]
-extern "C" {
-    fn alert(s: &str);
-}
-
-#[wasm_bindgen]
-pub fn greet() -> TestStruct {
-    let ts = TestStruct { num: 123 };
-    ts
+pub fn add(a: u32, b: u32) -> u32 {
+    a + b
 }
