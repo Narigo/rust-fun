@@ -20,3 +20,8 @@ cfg_if! {
 pub fn add(a: u32, b: u32) -> u32 {
     a + b
 }
+
+#[wasm_bindgen]
+pub fn concat(a: &str, b: &str) -> String {
+    [a, b].concat()
+}
