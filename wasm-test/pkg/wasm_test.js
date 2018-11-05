@@ -77,6 +77,54 @@ export function concat(arg0, arg1) {
 
 }
 
+/**
+* @returns {TestStruct}
+*/
+export function my_struct() {
+    return TestStruct.__wrap(wasm.my_struct());
+}
+
+function freeTestStruct(ptr) {
+
+    wasm.__wbg_teststruct_free(ptr);
+}
+/**
+*/
+export class TestStruct {
+
+    static __wrap(ptr) {
+        const obj = Object.create(TestStruct.prototype);
+        obj.ptr = ptr;
+
+        return obj;
+    }
+
+    free() {
+        const ptr = this.ptr;
+        this.ptr = 0;
+        freeTestStruct(ptr);
+    }
+
+    /**
+    * @returns {number}
+    */
+    get_num_a() {
+        return wasm.teststruct_get_num_a(this.ptr);
+    }
+    /**
+    * @returns {number}
+    */
+    get_num_b() {
+        return wasm.teststruct_get_num_b(this.ptr);
+    }
+    /**
+    * @returns {number}
+    */
+    multiply_nums() {
+        return wasm.teststruct_multiply_nums(this.ptr);
+    }
+}
+
 export function __wbindgen_throw(ptr, len) {
     throw new Error(getStringFromWasm(ptr, len));
 }
