@@ -23,7 +23,7 @@ pub struct Counter {
 
 #[wasm_bindgen]
 impl Counter {
-    pub fn new(width: u32, height: u32) -> Counter {
+    pub fn new() -> Counter {
         Counter { count: 0 }
     }
 

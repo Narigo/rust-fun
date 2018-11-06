@@ -2,7 +2,7 @@
 export class Counter {
 free(): void;
 
-static  new(arg0: number, arg1: number): Counter;
+static  new(): Counter;
 
  count(): void;
 

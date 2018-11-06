@@ -23,12 +23,10 @@ export class Counter {
     }
 
     /**
-    * @param {number} arg0
-    * @param {number} arg1
     * @returns {Counter}
     */
-    static new(arg0, arg1) {
-        return Counter.__wrap(wasm.counter_new(arg0, arg1));
+    static new() {
+        return Counter.__wrap(wasm.counter_new());
     }
     /**
     * @returns {void}
