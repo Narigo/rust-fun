@@ -1,17 +1,11 @@
 /* tslint:disable */
-export function add(arg0: number, arg1: number): number;
-
-export function concat(arg0: string, arg1: string): string;
-
-export function my_struct(): TestStruct;
-
-export class TestStruct {
+export class Counter {
 free(): void;
 
- get_num_a(): number;
+static  new(arg0: number, arg1: number): Counter;
 
- get_num_b(): number;
+ count(): void;
 
- multiply_nums(): number;
+ get_count(): number;
 
 }

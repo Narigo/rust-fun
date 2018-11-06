@@ -17,40 +17,21 @@ cfg_if! {
 }
 
 #[wasm_bindgen]
-pub fn add(a: u32, b: u32) -> u32 {
-    a + b
+pub struct Counter {
+    count: u32,
 }
 
 #[wasm_bindgen]
-pub fn concat(a: &str, b: &str) -> String {
-    [a, b].concat()
-}
-
-#[wasm_bindgen]
-pub struct TestStruct {
-    num_a: u32,
-    num_b: u32,
-}
-
-#[wasm_bindgen]
-pub fn my_struct() -> TestStruct {
-    let test = TestStruct {
-        num_a: 7,
-        num_b: 13,
-    };
-
-    test
-}
-
-#[wasm_bindgen]
-impl TestStruct {
-    pub fn get_num_a(&self) -> u32 {
-        self.num_a
+impl Counter {
+    pub fn new(width: u32, height: u32) -> Counter {
+        Counter { count: 0 }
     }
-    pub fn get_num_b(&self) -> u32 {
-        self.num_b
+
+    pub fn count(&mut self) {
+        self.count = self.count + 1
     }
-    pub fn multiply_nums(&self) -> u32 {
-        self.num_a * self.num_b
+
+    pub fn get_count(&self) -> u32 {
+        self.count
     }
 }
