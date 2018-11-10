@@ -20,7 +20,7 @@ function run() {
   function tick() {
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
     const x = myCounter.get_count() % canvas.width;
-    const y = myCounter.get_count() % canvas.height;
+    const y = (myCounter.get_count() * myCounter.get_count()) % canvas.height;
     ctx.beginPath();
     ctx.arc(x, y, myCounter.get_count() % Math.max(canvas.height, canvas.width), 0, 360);
     ctx.stroke();
