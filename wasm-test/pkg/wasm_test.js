@@ -23,22 +23,63 @@ export class Counter {
     }
 
     /**
+    * @returns {number}
+    */
+    get x() {
+        return wasm.__wbg_get_counter_x(this.ptr);
+    }
+    set x(arg0) {
+        return wasm.__wbg_set_counter_x(this.ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get y() {
+        return wasm.__wbg_get_counter_y(this.ptr);
+    }
+    set y(arg0) {
+        return wasm.__wbg_set_counter_y(this.ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get radius() {
+        return wasm.__wbg_get_counter_radius(this.ptr);
+    }
+    set radius(arg0) {
+        return wasm.__wbg_set_counter_radius(this.ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get width() {
+        return wasm.__wbg_get_counter_width(this.ptr);
+    }
+    set width(arg0) {
+        return wasm.__wbg_set_counter_width(this.ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get height() {
+        return wasm.__wbg_get_counter_height(this.ptr);
+    }
+    set height(arg0) {
+        return wasm.__wbg_set_counter_height(this.ptr, arg0);
+    }
+    /**
+    * @param {number} arg0
+    * @param {number} arg1
     * @returns {Counter}
     */
-    static new() {
-        return Counter.__wrap(wasm.counter_new());
+    static new(arg0, arg1) {
+        return Counter.__wrap(wasm.counter_new(arg0, arg1));
     }
     /**
     * @returns {void}
     */
     count() {
         return wasm.counter_count(this.ptr);
-    }
-    /**
-    * @returns {number}
-    */
-    get_count() {
-        return wasm.counter_get_count(this.ptr);
     }
 }
 

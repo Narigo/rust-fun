@@ -18,20 +18,28 @@ cfg_if! {
 
 #[wasm_bindgen]
 pub struct Counter {
-    count: u32,
+    pub x: u32,
+    pub y: u32,
+    pub radius: u32,
+    pub width: u32,
+    pub height: u32,
 }
 
 #[wasm_bindgen]
 impl Counter {
-    pub fn new() -> Counter {
-        Counter { count: 0 }
+    pub fn new(width: u32, height: u32) -> Counter {
+        Counter {
+            x: 0,
+            y: 0,
+            radius: 1,
+            width: width,
+            height: height,
+        }
     }
 
     pub fn count(&mut self) {
-        self.count = self.count + 1
-    }
-
-    pub fn get_count(&self) -> u32 {
-        self.count
+        self.x = (self.x + 1) % self.width;
+        self.y = (self.y + 1) % self.height;
+        self.radius = (self.radius + 1) % (self.height / 2);
     }
 }

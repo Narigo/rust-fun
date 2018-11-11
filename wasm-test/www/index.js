@@ -18,16 +18,17 @@ function run() {
   });
 
   function tick() {
+    const { x, y, radius } = myCounter;
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
-    const x = 0;
-    const y = 0;
     ctx.beginPath();
-    ctx.arc(x, y, myCounter.get_count() % Math.max(canvas.height, canvas.width), 0, 360);
+    ctx.arc(x, y, radius, 0, 360);
     ctx.stroke();
 
     if (counting) {
       myCounter.count();
       requestAnimationFrame(tick);
+    } else {
+      console.log({ myCounter });
     }
   }
 }
