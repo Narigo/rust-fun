@@ -18,10 +18,10 @@ function run() {
   });
 
   function tick() {
-    const { x, y, radius } = myCounter;
+    const { angle_min, angle_max, x, y, radius } = myCounter;
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
     ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 360);
+    ctx.arc(x, y, radius, angle_min, angle_max);
     ctx.stroke();
 
     if (counting) {

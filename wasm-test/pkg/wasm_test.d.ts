@@ -1,6 +1,8 @@
 /* tslint:disable */
 export class Counter {
 free(): void;
+angle_min: number
+angle_max: number
 x: number
 y: number
 radius: number

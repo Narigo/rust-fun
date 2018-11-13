@@ -1,6 +1,10 @@
 /* tslint:disable */
 import * as wasm from './wasm_test_bg';
 
+export function __wbg_random_550c16f4bb1e60f5() {
+    return Math.random();
+}
+
 function freeCounter(ptr) {
 
     wasm.__wbg_counter_free(ptr);
@@ -22,6 +26,24 @@ export class Counter {
         freeCounter(ptr);
     }
 
+    /**
+    * @returns {number}
+    */
+    get angle_min() {
+        return wasm.__wbg_get_counter_angle_min(this.ptr);
+    }
+    set angle_min(arg0) {
+        return wasm.__wbg_set_counter_angle_min(this.ptr, arg0);
+    }
+    /**
+    * @returns {number}
+    */
+    get angle_max() {
+        return wasm.__wbg_get_counter_angle_max(this.ptr);
+    }
+    set angle_max(arg0) {
+        return wasm.__wbg_set_counter_angle_max(this.ptr, arg0);
+    }
     /**
     * @returns {number}
     */
