@@ -4,6 +4,7 @@ extern crate wasm_bindgen;
 mod utils;
 
 use cfg_if::cfg_if;
+use std::cmp::max;
 use wasm_bindgen::prelude::*;
 
 cfg_if! {
@@ -40,6 +41,6 @@ impl Counter {
     pub fn count(&mut self) {
         self.x = (self.x + 1) % self.width;
         self.y = (self.y + 1) % self.height;
-        self.radius = (self.radius + 1) % (self.height / 2);
+        self.radius = (self.radius + 1) % (max(self.height, self.width) / 4);
     }
 }
