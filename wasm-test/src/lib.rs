@@ -46,10 +46,10 @@ impl Counter {
     pub fn count(&mut self) {
         let min_rand = (js_sys::Math::random() * 360.0) as u16;
         let max_rand = (js_sys::Math::random() * 360.0) as u16;
-        self.angle_min = min_rand;
+        self.angle_min = min_rand;        
         self.angle_max = max_rand;
-        self.x = (self.x + 1) % self.width;
-        self.y = (self.y + 1) % self.height;
+        self.x = (self.x + (self.width - 1)) % self.width;
+        self.y = (self.y + (self.height - 1)) % self.height;
         self.radius = self.radius + 2;
         self.radius = self.radius % (max(self.height, self.width) / 2);
     }
