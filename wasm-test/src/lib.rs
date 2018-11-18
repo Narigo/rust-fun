@@ -22,6 +22,7 @@ cfg_if! {
 pub struct Counter {
     pub angle_min: u16,
     pub angle_max: u16,
+    pub circle: bool,
     pub x: u32,
     pub y: u32,
     pub radius: u32,
@@ -35,6 +36,7 @@ impl Counter {
         Counter {
             angle_min: 0,
             angle_max: 360,
+            circle: true,
             x: width / 2,
             y: height / 2,
             radius: 1,
@@ -58,6 +60,7 @@ impl Counter {
         };
         self.angle_min = min_rand;
         self.angle_max = max_rand;
+        self.circle = js_sys::Math::random() > 0.5;
         self.x = (self.x + x_change) % self.width;
         self.y = (self.y + y_change) % self.height;
         self.radius = self.radius + 2;

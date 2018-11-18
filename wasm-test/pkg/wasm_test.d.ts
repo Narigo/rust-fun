@@ -3,6 +3,7 @@ export class Counter {
 free(): void;
 angle_min: number
 angle_max: number
+circle: boolean
 x: number
 y: number
 radius: number

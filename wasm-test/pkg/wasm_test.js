@@ -45,6 +45,15 @@ export class Counter {
         return wasm.__wbg_set_counter_angle_max(this.ptr, arg0);
     }
     /**
+    * @returns {boolean}
+    */
+    get circle() {
+        return (wasm.__wbg_get_counter_circle(this.ptr)) !== 0;
+    }
+    set circle(arg0) {
+        return wasm.__wbg_set_counter_circle(this.ptr, arg0);
+    }
+    /**
     * @returns {number}
     */
     get x() {

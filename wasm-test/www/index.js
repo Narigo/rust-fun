@@ -18,10 +18,18 @@ function run() {
   });
 
   function tick() {
-    const { angle_min, angle_max, x, y, radius } = myCounter;
+    const { angle_min, angle_max, circle, x, y, radius } = myCounter;
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
     ctx.beginPath();
-    ctx.arc(x, y, radius, angle_min, angle_max);
+    if (circle) {
+      ctx.arc(x, y, radius, angle_min, angle_max);
+    } else {
+      ctx.moveTo(x - radius, y - radius);
+      ctx.lineTo(x + radius, y - radius);
+      ctx.lineTo(x + radius, y + radius);
+      ctx.lineTo(x - radius, y + radius);
+      ctx.lineTo(x - radius, y - radius);
+    }
     ctx.stroke();
 
     if (counting) {
