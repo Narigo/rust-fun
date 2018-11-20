@@ -33,12 +33,12 @@ pub struct Counter {
 
 #[wasm_bindgen]
 impl Counter {
-    pub fn new(width: u32, height: u32, jump_by: u32) -> Counter {
+    pub fn new(width: u32, height: u32, jump_by: Option<u32>) -> Counter {
         Counter {
             angle_min: 0,
             angle_max: 360,
             circle: true,
-            jump_by: jump_by,
+            jump_by: jump_by.unwrap_or(1),
             x: width / 2,
             y: height / 2,
             radius: 1,

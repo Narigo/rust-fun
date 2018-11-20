@@ -10,7 +10,7 @@ function run() {
   let counting = false;
   let ctx = canvas.getContext("2d");
 
-  const myCounter = Counter.new(canvas.width, canvas.height, 5);
+  const myCounter = Counter.new(canvas.width, canvas.height);
 
   document.addEventListener("mouseup", () => {
     counting = !counting;

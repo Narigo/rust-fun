@@ -1,6 +1,10 @@
 /* tslint:disable */
 import * as wasm from './wasm_test_bg';
 
+function isLikeNone(x) {
+    return x === undefined || x === null;
+}
+
 export function __wbg_random_550c16f4bb1e60f5() {
     return Math.random();
 }
@@ -105,7 +109,7 @@ export class Counter {
     * @returns {Counter}
     */
     static new(arg0, arg1, arg2) {
-        return Counter.__wrap(wasm.counter_new(arg0, arg1, arg2));
+        return Counter.__wrap(wasm.counter_new(arg0, arg1, !isLikeNone(arg2), isLikeNone(arg2) ? 0 : arg2));
     }
     /**
     * @returns {void}
