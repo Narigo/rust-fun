@@ -23,6 +23,7 @@ pub struct Counter {
     pub angle_min: u16,
     pub angle_max: u16,
     pub circle: bool,
+    jump_by: u32,
     pub x: u32,
     pub y: u32,
     pub radius: u32,
@@ -32,11 +33,12 @@ pub struct Counter {
 
 #[wasm_bindgen]
 impl Counter {
-    pub fn new(width: u32, height: u32) -> Counter {
+    pub fn new(width: u32, height: u32, jump_by: u32) -> Counter {
         Counter {
             angle_min: 0,
             angle_max: 360,
             circle: true,
+            jump_by: jump_by,
             x: width / 2,
             y: height / 2,
             radius: 1,
@@ -49,14 +51,14 @@ impl Counter {
         let min_rand = (js_sys::Math::random() * 360.0) as u16;
         let max_rand = (js_sys::Math::random() * 360.0) as u16;
         let x_change = if js_sys::Math::random() > 0.5 {
-            (self.width - 1)
+            (self.width - self.jump_by)
         } else {
-            1
+            self.jump_by
         };
         let y_change = if js_sys::Math::random() > 0.5 {
-            (self.height - 1)
+            (self.height - self.jump_by)
         } else {
-            1
+            self.jump_by
         };
         self.angle_min = min_rand;
         self.angle_max = max_rand;

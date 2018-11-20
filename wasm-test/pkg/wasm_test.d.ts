@@ -10,7 +10,7 @@ radius: number
 width: number
 height: number
 
-static  new(arg0: number, arg1: number): Counter;
+static  new(arg0: number, arg1: number, arg2: number): Counter;
 
  count(): void;
 

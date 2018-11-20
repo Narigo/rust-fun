@@ -101,10 +101,11 @@ export class Counter {
     /**
     * @param {number} arg0
     * @param {number} arg1
+    * @param {number} arg2
     * @returns {Counter}
     */
-    static new(arg0, arg1) {
-        return Counter.__wrap(wasm.counter_new(arg0, arg1));
+    static new(arg0, arg1, arg2) {
+        return Counter.__wrap(wasm.counter_new(arg0, arg1, arg2));
     }
     /**
     * @returns {void}
