@@ -33,7 +33,9 @@ function run() {
     ctx.stroke();
 
     if (counting) {
-      myCounter.count();
+      console.time("rust");
+      myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+      console.timeEnd("rust");
       requestAnimationFrame(tick);
     } else {
       console.log({ myCounter });

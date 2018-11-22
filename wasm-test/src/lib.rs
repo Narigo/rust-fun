@@ -47,6 +47,28 @@ impl Counter {
         }
     }
 
+    pub fn count_with_provided_rands(&mut self, a: f64, b: f64, c: f64, d: f64, e: f64) {
+        let min_rand = (a * 360.0) as u16;
+        let max_rand = (b * 360.0) as u16;
+        let x_change = if c > 0.5 {
+            (self.width - self.jump_by)
+        } else {
+            self.jump_by
+        };
+        let y_change = if d > 0.5 {
+            (self.height - self.jump_by)
+        } else {
+            self.jump_by
+        };
+        self.angle_min = min_rand;
+        self.angle_max = max_rand;
+        self.circle = e > 0.5;
+        self.x = (self.x + x_change) % self.width;
+        self.y = (self.y + y_change) % self.height;
+        self.radius = self.radius + 2;
+        self.radius = self.radius % (max(self.height, self.width) / 2);
+    }
+
     pub fn count(&mut self) {
         let min_rand = (js_sys::Math::random() * 360.0) as u16;
         let max_rand = (js_sys::Math::random() * 360.0) as u16;

@@ -112,6 +112,17 @@ export class Counter {
         return Counter.__wrap(wasm.counter_new(arg0, arg1, !isLikeNone(arg2), isLikeNone(arg2) ? 0 : arg2));
     }
     /**
+    * @param {number} arg0
+    * @param {number} arg1
+    * @param {number} arg2
+    * @param {number} arg3
+    * @param {number} arg4
+    * @returns {void}
+    */
+    count_with_provided_rands(arg0, arg1, arg2, arg3, arg4) {
+        return wasm.counter_count_with_provided_rands(this.ptr, arg0, arg1, arg2, arg3, arg4);
+    }
+    /**
     * @returns {void}
     */
     count() {
