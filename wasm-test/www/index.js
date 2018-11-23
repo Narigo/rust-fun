@@ -7,6 +7,7 @@ function run() {
   canvas.height = canvas.clientHeight;
   canvas.width = canvas.clientWidth;
 
+  let measurements = [];
   let counting = false;
   let ctx = canvas.getContext("2d");
 
@@ -14,7 +15,9 @@ function run() {
 
   document.addEventListener("mouseup", () => {
     counting = !counting;
-    requestAnimationFrame(tick);
+    if (counting) {
+      requestAnimationFrame(tick);
+    }
   });
 
   function tick() {
@@ -33,11 +36,16 @@ function run() {
     ctx.stroke();
 
     if (counting) {
-      console.time("rust");
-      myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
-      console.timeEnd("rust");
+      const start = window.performance.now();
+      myCounter.count();
+      // myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+      const end = window.performance.now();
+      measurements.push(end - start);
       requestAnimationFrame(tick);
     } else {
+      const allTime = measurements.reduce((sum, time) => sum + time, 0);
+      console.log("average time spent in rust:", allTime / measurements.length);
+      measurements = [];
       console.log({ myCounter });
     }
   }
