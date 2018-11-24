@@ -9,6 +9,7 @@ function run() {
 
   let measurements = [];
   let counting = false;
+  let clicked = 0;
   let ctx = canvas.getContext("2d");
 
   const myCounter = Counter.new(canvas.width, canvas.height);
@@ -16,6 +17,7 @@ function run() {
   document.addEventListener("mouseup", () => {
     counting = !counting;
     if (counting) {
+      clicked = clicked + 1;
       requestAnimationFrame(tick);
     }
   });
@@ -37,14 +39,22 @@ function run() {
 
     if (counting) {
       const start = window.performance.now();
-      myCounter.count();
-      // myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+      if (clicked % 2 === 0) {
+        myCounter.count();
+      } else {
+        myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+      }
       const end = window.performance.now();
       measurements.push(end - start);
       requestAnimationFrame(tick);
     } else {
       const allTime = measurements.reduce((sum, time) => sum + time, 0);
-      console.log("average time spent in rust:", allTime / measurements.length);
+      console.log(
+        "average time spent in rust",
+        allTime / measurements.length,
+        " - provided rands?",
+        clicked % 2 !== 0
+      );
       measurements = [];
       console.log({ myCounter });
     }
