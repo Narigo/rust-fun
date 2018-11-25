@@ -50,9 +50,12 @@ function run() {
     } else {
       const allTime = measurements.reduce((sum, time) => sum + time, 0);
       console.log(
-        "average time spent in rust",
+        "average time spent in rust:",
         allTime / measurements.length,
-        " - provided rands?",
+        "\n-",
+        measurements.length,
+        "calls.",
+        "\n- provided rands?",
         clicked % 2 !== 0
       );
       measurements = [];
