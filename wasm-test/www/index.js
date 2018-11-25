@@ -10,6 +10,7 @@ function run() {
   let measurements = [];
   let counting = false;
   let clicked = 0;
+  let withRandProvided = true;
   let ctx = canvas.getContext("2d");
 
   const myCounter = Counter.new(canvas.width, canvas.height);
@@ -17,6 +18,7 @@ function run() {
   document.addEventListener("mouseup", () => {
     counting = !counting;
     if (counting) {
+      withRandProvided = clicked % 2 === 0;
       clicked = clicked + 1;
       requestAnimationFrame(tick);
     }
@@ -39,10 +41,10 @@ function run() {
 
     if (counting) {
       const start = window.performance.now();
-      if (clicked % 2 === 0) {
-        myCounter.count();
-      } else {
+      if (withRandProvided) {
         myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
+      } else {
+        myCounter.count();
       }
       const end = window.performance.now();
       measurements.push(end - start);
@@ -56,10 +58,9 @@ function run() {
         measurements.length,
         "calls.",
         "\n- provided rands?",
-        clicked % 2 !== 0
+        withRandProvided
       );
       measurements = [];
-      console.log({ myCounter });
     }
   }
 }
