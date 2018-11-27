@@ -1,8 +1,6 @@
 import { Counter } from "wasm-test";
 
-run();
-
-function run() {
+export function run() {
   const canvas = document.getElementById("canvas");
   canvas.height = canvas.clientHeight;
   canvas.width = canvas.clientWidth;
