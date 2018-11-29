@@ -20,19 +20,28 @@ export function run() {
       clicked = clicked + 1;
       requestAnimationFrame(tick);
     } else {
-      const allTime = measurements.reduce((sum, time) => sum + time, 0);
-      console.log(
-        "average time spent in rust:",
-        allTime / measurements.length,
-        "\n-",
-        measurements.length,
-        "calls.",
-        "\n- provided rands?",
-        withRandProvided
-      );
-      measurements = [];
+      endCounting();
     }
   });
+
+  function endCounting() {
+    counting = false;
+    summarize();
+  }
+
+  function summarize() {
+    const allTime = measurements.reduce((sum, time) => sum + time, 0);
+    console.log(
+      "average time spent in rust:",
+      allTime / measurements.length,
+      "\n-",
+      measurements.length,
+      "calls.",
+      "\n- provided rands?",
+      withRandProvided
+    );
+    measurements = [];
+  }
 
   function tick() {
     const { angle_min, angle_max, circle, x, y, radius } = myCounter;
@@ -58,7 +67,11 @@ export function run() {
       }
       const end = window.performance.now();
       measurements.push(end - start);
-      requestAnimationFrame(tick);
+      if (measurements.length >= 300) {
+        endCounting();
+      } else {
+        requestAnimationFrame(tick);
+      }
     }
   }
 }
