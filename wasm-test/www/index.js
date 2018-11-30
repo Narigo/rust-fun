@@ -68,10 +68,9 @@ export function run() {
       const end = window.performance.now();
       measurements.push(end - start);
       if (measurements.length >= 300) {
-        endCounting();
-      } else {
-        requestAnimationFrame(tick);
+        summarize();
       }
+      requestAnimationFrame(tick);
     }
   }
 }
