@@ -43,6 +43,10 @@ export function run() {
     measurements = [];
   }
 
+  function getRandom() {
+    return withRandProvided ? Math.random() : undefined;
+  }
+
   function tick() {
     const { angle_min, angle_max, circle, x, y, radius } = myCounter;
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
@@ -60,11 +64,7 @@ export function run() {
 
     if (counting) {
       const start = window.performance.now();
-      if (withRandProvided) {
-        myCounter.count_with_provided_rands(Math.random(), Math.random(), Math.random(), Math.random(), Math.random());
-      } else {
-        myCounter.count();
-      }
+      myCounter.count(getRandom(), getRandom(), getRandom(), getRandom(), getRandom());
       const end = window.performance.now();
       measurements.push(end - start);
       if (measurements.length >= 300) {

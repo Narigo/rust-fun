@@ -69,22 +69,29 @@ impl Counter {
         self.radius = self.radius % (max(self.height, self.width) / 2);
     }
 
-    pub fn count(&mut self) {
-        let min_rand = (js_sys::Math::random() * 360.0) as u16;
-        let max_rand = (js_sys::Math::random() * 360.0) as u16;
-        let x_change = if js_sys::Math::random() > 0.5 {
+    pub fn count(
+        &mut self,
+        a: Option<f64>,
+        b: Option<f64>,
+        c: Option<f64>,
+        d: Option<f64>,
+        e: Option<f64>,
+    ) {
+        let min_rand = (a.unwrap_or(js_sys::Math::random()) * 360.0) as u16;
+        let max_rand = (b.unwrap_or(js_sys::Math::random()) * 360.0) as u16;
+        let x_change = if c.unwrap_or(js_sys::Math::random()) > 0.5 {
             (self.width - self.jump_by)
         } else {
             self.jump_by
         };
-        let y_change = if js_sys::Math::random() > 0.5 {
+        let y_change = if d.unwrap_or(js_sys::Math::random()) > 0.5 {
             (self.height - self.jump_by)
         } else {
             self.jump_by
         };
         self.angle_min = min_rand;
         self.angle_max = max_rand;
-        self.circle = js_sys::Math::random() > 0.5;
+        self.circle = e.unwrap_or(js_sys::Math::random()) > 0.5;
         self.x = (self.x + x_change) % self.width;
         self.y = (self.y + y_change) % self.height;
         self.radius = self.radius + 2;

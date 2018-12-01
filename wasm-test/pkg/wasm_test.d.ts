@@ -14,6 +14,6 @@ static  new(arg0: number, arg1: number, arg2: number): Counter;
 
  count_with_provided_rands(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number): void;
 
- count(): void;
+ count(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number): void;
 
 }

@@ -123,10 +123,15 @@ export class Counter {
         return wasm.counter_count_with_provided_rands(this.ptr, arg0, arg1, arg2, arg3, arg4);
     }
     /**
+    * @param {number} arg0
+    * @param {number} arg1
+    * @param {number} arg2
+    * @param {number} arg3
+    * @param {number} arg4
     * @returns {void}
     */
-    count() {
-        return wasm.counter_count(this.ptr);
+    count(arg0, arg1, arg2, arg3, arg4) {
+        return wasm.counter_count(this.ptr, !isLikeNone(arg0), isLikeNone(arg0) ? 0 : arg0, !isLikeNone(arg1), isLikeNone(arg1) ? 0 : arg1, !isLikeNone(arg2), isLikeNone(arg2) ? 0 : arg2, !isLikeNone(arg3), isLikeNone(arg3) ? 0 : arg3, !isLikeNone(arg4), isLikeNone(arg4) ? 0 : arg4);
     }
 }
 
