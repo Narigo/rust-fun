@@ -5,6 +5,7 @@ export function run() {
   canvas.height = canvas.clientHeight;
   canvas.width = canvas.clientWidth;
 
+  let allTimes = [];
   let measurements = [];
   let counting = false;
   let clicked = 0;
@@ -27,6 +28,17 @@ export function run() {
   function endCounting() {
     counting = false;
     summarize();
+    const allTime = allTimes.reduce((sum, time) => sum + time, 0);
+    console.log(
+      "average time spent in rust:",
+      allTime / allTimes.length,
+      "\n-",
+      allTimes.length,
+      "calls.",
+      "\n- provided rands?",
+      withRandProvided
+    );
+    allTimes = [];
   }
 
   function summarize() {
@@ -40,6 +52,7 @@ export function run() {
       "\n- provided rands?",
       withRandProvided
     );
+    allTimes = [...allTimes, ...measurements];
     measurements = [];
   }
 
