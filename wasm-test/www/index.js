@@ -76,8 +76,9 @@ export function run() {
     ctx.stroke();
 
     if (counting) {
+      const [a, b, c, d, e] = [getRandom(), getRandom(), getRandom(), getRandom(), getRandom()];
       const start = window.performance.now();
-      myCounter.count(getRandom(), getRandom(), getRandom(), getRandom(), getRandom());
+      myCounter.count(a, b, c, d, e);
       const end = window.performance.now();
       measurements.push(end - start);
       if (measurements.length >= 300) {
