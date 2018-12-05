@@ -77,24 +77,12 @@ impl Counter {
         d: Option<f64>,
         e: Option<f64>,
     ) {
-        let min_rand = (a.unwrap_or_else(|| js_sys::Math::random()) * 360.0) as u16;
-        let max_rand = (b.unwrap_or_else(|| js_sys::Math::random()) * 360.0) as u16;
-        let x_change = if c.unwrap_or_else(|| js_sys::Math::random()) > 0.5 {
-            (self.width - self.jump_by)
-        } else {
-            self.jump_by
-        };
-        let y_change = if d.unwrap_or_else(|| js_sys::Math::random()) > 0.5 {
-            (self.height - self.jump_by)
-        } else {
-            self.jump_by
-        };
-        self.angle_min = min_rand;
-        self.angle_max = max_rand;
-        self.circle = e.unwrap_or_else(|| js_sys::Math::random()) > 0.5;
-        self.x = (self.x + x_change) % self.width;
-        self.y = (self.y + y_change) % self.height;
-        self.radius = self.radius + 2;
-        self.radius = self.radius % (max(self.height, self.width) / 2);
+        self.count_with_provided_rands(
+            a.unwrap_or_else(|| js_sys::Math::random()),
+            b.unwrap_or_else(|| js_sys::Math::random()),
+            c.unwrap_or_else(|| js_sys::Math::random()),
+            d.unwrap_or_else(|| js_sys::Math::random()),
+            e.unwrap_or_else(|| js_sys::Math::random()),
+        )
     }
 }
