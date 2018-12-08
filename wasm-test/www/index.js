@@ -67,11 +67,8 @@ export function run() {
     if (circle) {
       ctx.arc(x, y, radius, angle_min, angle_max);
     } else {
-      ctx.moveTo(x - radius, y - radius);
-      ctx.lineTo(x + radius, y - radius);
-      ctx.lineTo(x + radius, y + radius);
-      ctx.lineTo(x - radius, y + radius);
-      ctx.lineTo(x - radius, y - radius);
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + radius + angle_min - 180, y + radius + angle_max - 180);
     }
     ctx.stroke();
 
