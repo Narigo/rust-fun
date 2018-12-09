@@ -68,9 +68,9 @@ export function run() {
       ctx.arc(x, y, radius, angle_min, angle_max);
     } else {
       ctx.moveTo(x, y);
-      ctx.lineTo(x + Math.cos(angle_max - angle_min) * radius, y + Math.sin(angle_max - angle_min) * radius);
+      ctx.lineTo(x + Math.cos(angle_max) * radius, y + Math.sin(angle_max) * radius);
       ctx.moveTo(x, y);
-      ctx.lineTo(x + Math.cos(angle_max - angle_min) * radius / 2, y + Math.sin(angle_max - angle_min) * radius / 2);
+      ctx.lineTo(x + Math.cos(angle_min) * radius / 2, y + Math.sin(angle_min) * radius / 2);
     }
     ctx.stroke();
 
