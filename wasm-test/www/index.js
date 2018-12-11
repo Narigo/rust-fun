@@ -28,10 +28,13 @@ export function run() {
   function endCounting() {
     counting = false;
     summarize();
-    const allTime = allTimes.reduce((sum, time) => sum + time, 0);
+    const wasmTime = allTimes.reduce((sum, time) => sum + time.wasmTime, 0);
+    const jsTime = allTimes.reduce((sum, time) => sum + time.jsTime, 0);
     console.log(
-      "average time spent in rust:",
-      allTime / allTimes.length,
+      "average time spent in wasm:",
+      wasmTime / allTimes.length,
+      "\naverage time spent in js:",
+      jsTime / allTimes.length,
       "\n-",
       allTimes.length,
       "calls.",
@@ -42,10 +45,13 @@ export function run() {
   }
 
   function summarize() {
-    const allTime = measurements.reduce((sum, time) => sum + time, 0);
+    const wasmTime = measurements.reduce((sum, time) => sum + time.wasmTime, 0);
+    const jsTime = measurements.reduce((sum, time) => sum + time.jsTime, 0);
     console.log(
-      "average time spent in rust:",
-      allTime / measurements.length,
+      "average time spent in wasm:",
+      wasmTime / measurements.length,
+      "\naverage time spent in js:",
+      jsTime / measurements.length,
       "\n-",
       measurements.length,
       "calls.",
@@ -61,6 +67,7 @@ export function run() {
   }
 
   function tick() {
+    const startJs = window.performance.now();
     const { angle_min, angle_max, circle, x, y, radius } = myCounter;
     ctx.strokeStyle = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
     ctx.beginPath();
@@ -70,16 +77,17 @@ export function run() {
       ctx.moveTo(x, y);
       ctx.lineTo(x + Math.cos(angle_max) * radius, y + Math.sin(angle_max) * radius);
       ctx.moveTo(x, y);
-      ctx.lineTo(x + Math.cos(angle_min) * radius / 2, y + Math.sin(angle_min) * radius / 2);
+      ctx.lineTo(x + (Math.cos(angle_min) * radius) / 2, y + (Math.sin(angle_min) * radius) / 2);
     }
     ctx.stroke();
+    const endJs = window.performance.now();
 
     if (counting) {
       const start = window.performance.now();
       const [a, b, c, d, e] = [getRandom(), getRandom(), getRandom(), getRandom(), getRandom()];
       myCounter.count(a, b, c, d, e);
       const end = window.performance.now();
-      measurements.push(end - start);
+      measurements.push({ jsTime: endJs - startJs, wasmTime: end - start });
       if (measurements.length >= 300) {
         summarize();
       }
