@@ -25,39 +25,31 @@ export function run() {
     }
   });
 
-  function endCounting() {
-    counting = false;
-    summarize();
-    const wasmTime = allTimes.reduce((sum, time) => sum + time.wasmTime, 0);
-    const jsTime = allTimes.reduce((sum, time) => sum + time.jsTime, 0);
+  function logTimes(times) {
+    const wasmTime = times.reduce((sum, time) => sum + time.wasmTime, 0);
+    const jsTime = times.reduce((sum, time) => sum + time.jsTime, 0);
     console.log(
       "average time spent in wasm:",
-      wasmTime / allTimes.length,
+      wasmTime / times.length,
       "\naverage time spent in js:",
-      jsTime / allTimes.length,
+      jsTime / times.length,
       "\n-",
-      allTimes.length,
+      times.length,
       "calls.",
       "\n- provided rands?",
       withRandProvided
     );
+  }
+
+  function endCounting() {
+    counting = false;
+    summarize();
+    logTimes(allTimes);
     allTimes = [];
   }
 
   function summarize() {
-    const wasmTime = measurements.reduce((sum, time) => sum + time.wasmTime, 0);
-    const jsTime = measurements.reduce((sum, time) => sum + time.jsTime, 0);
-    console.log(
-      "average time spent in wasm:",
-      wasmTime / measurements.length,
-      "\naverage time spent in js:",
-      jsTime / measurements.length,
-      "\n-",
-      measurements.length,
-      "calls.",
-      "\n- provided rands?",
-      withRandProvided
-    );
+    logTimes(measurements);
     allTimes = [...allTimes, ...measurements];
     measurements = [];
   }
