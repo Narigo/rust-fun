@@ -25,7 +25,7 @@ export function run() {
     }
   });
 
-  function logTimes(times) {
+  function logAndClearTimes(times) {
     const wasmTime = times.reduce((sum, time) => sum + time.wasmTime, 0);
     const jsTime = times.reduce((sum, time) => sum + time.jsTime, 0);
     console.log(
@@ -39,19 +39,18 @@ export function run() {
       "\n- provided rands?",
       withRandProvided
     );
+    times.splice(0, times.length);
   }
 
   function endCounting() {
     counting = false;
     summarize();
-    logTimes(allTimes);
-    allTimes = [];
+    logAndClearTimes(allTimes);
   }
 
   function summarize() {
-    logTimes(measurements);
     allTimes = [...allTimes, ...measurements];
-    measurements = [];
+    logAndClearTimes(measurements);
   }
 
   function getRandom() {
