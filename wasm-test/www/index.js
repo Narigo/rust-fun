@@ -28,11 +28,13 @@ export function run() {
   function logAndClearTimes(times) {
     const wasmTime = times.reduce((sum, time) => sum + time.wasmTime, 0);
     const jsTime = times.reduce((sum, time) => sum + time.jsTime, 0);
+    const avgWasmTime = wasmTime / times.length;
+    const avgJsTime = jsTime / times.length;
     console.log(
       "average time spent in wasm:",
-      wasmTime / times.length,
+      avgWasmTime,
       "\naverage time spent in js:",
-      jsTime / times.length,
+      avgJsTime,
       "\n-",
       times.length,
       "calls.",
