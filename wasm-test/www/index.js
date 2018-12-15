@@ -30,17 +30,10 @@ export function run() {
     const jsTime = times.reduce((sum, time) => sum + time.jsTime, 0);
     const avgWasmTime = wasmTime / times.length;
     const avgJsTime = jsTime / times.length;
-    console.log(
-      "average time spent in wasm:",
-      avgWasmTime,
-      "\naverage time spent in js:",
-      avgJsTime,
-      "\n-",
-      times.length,
-      "calls.",
-      "\n- provided rands?",
-      withRandProvided
-    );
+    console.log(`average time spent in wasm: ${avgWasmTime}
+average time spent in js: ${avgJsTime}
+- ${times.length} calls.
+- provided rands? ${withRandProvided}`);
     times.splice(0, times.length);
   }
 
